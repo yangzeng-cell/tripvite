@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view></router-view>
+    home
   </div>
 </template>
 
@@ -8,6 +8,6 @@
 
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 
 </style>
