@@ -11,6 +11,18 @@ const router = createRouter({
       path: "/home",
       component: () => import("@/view/Home/Home.vue"),
     },
+    {
+      path: "/favor",
+      component: () => import("@/view/favor/favor.vue"),
+    },
+    {
+      path: "/message",
+      component: () => import("@/view/message/message.vue"),
+    },
+    {
+      path: "/order",
+      component: () => import("@/view/order/order.vue"),
+    },
   ],
 });
 
