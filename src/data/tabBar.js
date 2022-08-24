@@ -2,8 +2,8 @@ export default [
   {
     id: 1,
     title: "首页",
-    icon: "/tabbar/tab_home.png",
-    activeIcon: "/tabbar/tab_home_active.png",
+    icon: "tabbar/tab_home.png",
+    activeIcon: "tabbar/tab_home_active.png",
     path: "/home",
   },
   {
