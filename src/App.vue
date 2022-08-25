@@ -3,12 +3,15 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
-    <tab-bar class="tab_bar"></tab-bar>
+    <tab-bar v-if="!route.meta.hideTabBar" class="tab_bar"></tab-bar>
   </div>
 </template>
 
 <script setup>
+import { useRoute } from "vue-router";
 import tabBar from "./components/tabBar/tabBar.vue";
+
+const route = useRoute();
 </script>
 
 <style lang="less" scoped>
