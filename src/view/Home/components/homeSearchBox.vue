@@ -2,17 +2,23 @@
   <div class="home_search">
     <!-- 位置信息 -->
     <div class="loaction">
-      <div class="city">广州</div>
-      <div class="position">
+      <div class="city" @click="changeCityPage">
+        {{ useCityStore.currentCity }}
+      </div>
+      <div class="position" @click="getPosition">
         <span class="text">我的位置</span>
         <img src="@/assets/img/home/icon_location.png" alt="" />
       </div>
     </div>
     <!-- 日期范围 -->
     <div class="date_range" @click="show = true">
-      <div class="start"><span>入住</span><span>09月15日</span></div>
-      <div class="count">共1晚</div>
-      <div class="end"><span>离店</span><span>09月16日</span></div>
+      <div class="start">
+        <span>入住</span><span>{{ startTime }}</span>
+      </div>
+      <div class="count">共{{ stayCount }}晚</div>
+      <div class="end">
+        <span>离店</span><span>{{ endTime }}</span>
+      </div>
     </div>
     <!-- 价格/人数选择 -->
     <div class="price_counter">
@@ -41,13 +47,50 @@
 
 <script setup>
 import useHome from "@/store/useHome";
+import useCity from "@/store/useCity";
+import { getFormatterDate } from "@/utils/getFormatterDate";
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const useHomeStore = useHome();
+const useCityStore = useCity();
 const show = ref(false);
+const { startTime, endTime, stayCount } = storeToRefs(useHomeStore);
 useHomeStore.fetchHotSuggestData();
+
 const onConfirm = (values) => {
-  console.log(values);
+  console.log(values[0]);
   show.value = !show.value;
+  startTime.value = getFormatterDate(values[0], "MM月dd日");
+  endTime.value = getFormatterDate(values[1], "MM月dd日");
+  stayCount.value = getStayCount(values[0], values[1]);
+};
+
+const getStayCount = (start, end) => {
+  const during =
+    (new Date(end).getTime() - new Date(start).getTime()) / (3600 * 24 * 1000);
+  return during;
+};
+
+const changeCityPage = () => {
+  router.push("/city");
+};
+
+const getPosition = () => {
+  navigator.geolocation.getCurrentPosition(
+    (res) => {
+      console.log("获取位置：" + JSON.stringify(res));
+    },
+    (error) => {
+      console.log(error);
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0,
+    }
+  );
 };
 </script>
 
