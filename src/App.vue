@@ -16,6 +16,7 @@ const route = useRoute();
 
 <style lang="less" scoped>
 .app {
+  padding-bottom: 80px;
   .tab_bar {
     position: fixed;
     bottom: 0;

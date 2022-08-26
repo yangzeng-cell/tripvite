@@ -42,6 +42,11 @@
     </ul>
     <!-- 弹出日历 -->
     <van-calendar v-model:show="show" type="range" @confirm="onConfirm" />
+
+    <!-- 搜索按钮 -->
+    <div class="search_btn">
+      <div class="btn" @click="searchBtnClick">开始搜索</div>
+    </div>
   </div>
 </template>
 
@@ -169,6 +174,20 @@ const getPosition = () => {
       padding: 4px 8px;
       margin: 4px;
       border-radius: 14px;
+    }
+  }
+  .search_btn {
+    .btn {
+      height: 38px;
+      line-height: 38px;
+      color: #ffffff;
+      border-radius: 20px;
+      width: 342px;
+      background-image: var(--theme-linear-gradient);
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 600;
+      font-size: 16px;
     }
   }
 }
