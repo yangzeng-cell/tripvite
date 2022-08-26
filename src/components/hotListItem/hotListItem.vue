@@ -21,7 +21,7 @@
           <div class="finalPrice">{{ finalPrice }}</div>
           <div class="productPrice">{{ productPrice }}</div>
           <div class="priceTipBadge">
-            {{ props.item.data.priceTipBadge.text }}
+            {{ props.item.data?.priceTipBadge?.text || "" }}
           </div>
         </div>
       </div>

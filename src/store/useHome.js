@@ -14,6 +14,7 @@ const useHome = defineStore("home", {
       stayCount: 1,
       catagoryList: [],
       hotList: [],
+      currentPage: 1,
     };
   },
   actions: {
@@ -27,9 +28,10 @@ const useHome = defineStore("home", {
       this.catagoryList = res.data.data;
     },
 
-    async fetchHotListData(idx) {
-      const res = await getHotListAPI(idx);
+    async fetchHotListData() {
+      const res = await getHotListAPI(this.currentPage);
       this.hotList = [...this.hotList, ...res.data.data];
+      this.currentPage++;
     },
   },
 });

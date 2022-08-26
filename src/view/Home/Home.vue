@@ -11,6 +11,9 @@
     <home-search-box></home-search-box>
     <home-catagory></home-catagory>
     <HotList></HotList>
+    <div v-if="isShowSearchBar" class="search">
+      <SearchBar></SearchBar>
+    </div>
   </div>
 </template>
 
@@ -21,10 +24,22 @@ import homeCatagory from "./components/homeCatagory.vue";
 import useHome from "@/store/useHome";
 import HotList from "./components/hotList.vue";
 import useScroll from "@/hook/useScroll";
+import { computed, watch } from "vue";
+import SearchBar from "../../components/searchBar/searchBar.vue";
 
 const useHomeStore = useHome();
-useHomeStore.fetchHotListData(1);
-useScroll();
+const { attachBottom, scrollTop } = useScroll();
+watch(attachBottom, (newVal) => {
+  if (newVal) {
+    useHomeStore.fetchHotListData();
+    attachBottom.value = false;
+  }
+});
+
+const isShowSearchBar = computed(() => {
+  return scrollTop.value >= 360;
+});
+useHomeStore.fetchHotListData();
 </script>
 
 <style lang="less" scoped>
@@ -41,6 +56,10 @@ useScroll();
     img {
       width: 100%;
     }
+  }
+  .search {
+    position: fixed;
+    top: 0;
   }
 }
 </style>
