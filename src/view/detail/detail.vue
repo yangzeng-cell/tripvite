@@ -29,6 +29,7 @@ import topBar from "@/components/topBar/topBar.vue";
 import detailSwiper from "./components/detailSwiper.vue";
 import detailInfo from "./components/detailInfo.vue";
 import detailFacility from "./components/detailFacility.vue";
+import detailLandload from "./components/detailLandload.vue";
 import useDetail from "@/store/useDetail";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";

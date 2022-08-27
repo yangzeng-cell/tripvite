@@ -14,7 +14,7 @@
                 v-for="(val, index) in item.facilitys"
                 :key="index"
               >
-                <i></i>
+                <i class="con"></i>
                 <span>{{ val.name }}</span>
               </div>
             </div>
@@ -59,6 +59,16 @@ const props = defineProps({
         flex-wrap: wrap;
         align-items: center;
         .cell {
+          display: flex;
+          width: 50%;
+          margin: 4px 0;
+          .con {
+            margin: 0 6px;
+            width: 12px;
+            height: 12px;
+            background: url("@/assets/img/detail/icon_check.png") 0 0 / 100%
+              100%;
+          }
         }
       }
     }
