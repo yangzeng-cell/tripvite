@@ -1,6 +1,6 @@
 <template>
   <div class="hotlistitem">
-    <div class="inner">
+    <div class="inner" @click="goDetail(props.item)">
       <img :src="props.item.data.image.url" alt="" />
       <div class="info" v-if="props.item.discoveryContentType === 9">
         <div class="summaryText wrap">{{ props.item.data.summaryText }}</div>
@@ -31,6 +31,7 @@
 
 <script setup>
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   item: {
@@ -39,6 +40,7 @@ const props = defineProps({
   },
 });
 
+const router = useRouter();
 const commentScore = computed(() => {
   return Number(props.item.data.commentScore);
 });
@@ -50,6 +52,10 @@ const finalPrice = computed(() => {
 const productPrice = computed(() => {
   return "￥" + props.item.data.productPrice;
 });
+
+const goDetail = (value) => {
+  router.push(`/detail/${value.data.houseId}`);
+};
 </script>
 
 <style lang="less" scoped>
