@@ -1,16 +1,32 @@
 <template>
   <div class="facility">
-    <div class="section">
-      <div class="header">房屋设施</div>
-      <div class="content">
-        <div class="facility-inner"></div>
+    <detail-section title="房屋设施" footer="查看全部设施">
+      <div class="facility-inner">
+        <template v-for="(item, index) in facility.houseFacilitys" :key="index">
+          <div class="item" v-if="facility?.facilitySort?.includes(index)">
+            <div class="head">
+              <img class="icon" :src="item.icon" alt="" />
+              <div class="text">{{ item.groupName }}</div>
+            </div>
+            <div class="list">
+              <div
+                class="cell"
+                v-for="(val, index) in item.facilitys"
+                :key="index"
+              >
+                <i></i>
+                <span>{{ val.name }}</span>
+              </div>
+            </div>
+          </div>
+        </template>
       </div>
-      <div class="footer"></div>
-    </div>
+    </detail-section>
   </div>
 </template>
 
 <script setup>
+import detailSection from "@/components/detailSection/detailSection.vue";
 const props = defineProps({
   facility: {
     type: Object,
@@ -21,28 +37,35 @@ const props = defineProps({
 
 <style lang="less" scoped>
 .facility {
-  .section {
-    padding: 0 15px;
-    margin-top: 12px;
-    border-top: 5px solid #f2f3f4;
-    background-color: #fff;
-    .header {
-      height: 50px;
-      line-height: 50px;
-      border-bottom: 1px solid #eee;
-      font-size: 20px;
-      color: #333;
-      font-weight: 600;
-    }
-    .content {
-      padding: 8px 0;
-      .facility-inner {
-        padding: 5px 0;
-        border-radius: 6px;
-        font-size: 12px;
-        background-color: #f7f9fb;
+  .facility-inner {
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 12px;
+    background-color: #f7f9fb;
+    .item {
+      display: flex;
+      margin: 25px 0;
+      .head {
+        width: 90px;
+        text-align: center;
+        .text {
+          margin-top: 5px;
+          color: #000;
+        }
+      }
+      .list {
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        align-items: center;
+        .cell {
+        }
       }
     }
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
   }
 }
 </style>
