@@ -15,6 +15,10 @@
       <detail-swiper
         :swiper-data="mainPart?.topModule?.housePicture?.housePics"
       ></detail-swiper>
+      <detail-info :info="mainPart?.topModule"></detail-info>
+      <detail-facility
+        :facility="mainPart?.dynamicModule?.facilityModule?.houseFacility"
+      ></detail-facility>
     </div>
   </div>
 </template>
@@ -23,6 +27,8 @@
 import { useRoute, useRouter } from "vue-router";
 import topBar from "@/components/topBar/topBar.vue";
 import detailSwiper from "./components/detailSwiper.vue";
+import detailInfo from "./components/detailInfo.vue";
+import detailFacility from "./components/detailFacility.vue";
 import useDetail from "@/store/useDetail";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
