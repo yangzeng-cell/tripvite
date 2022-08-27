@@ -60,6 +60,11 @@ useHomeStore.fetchHotListData();
   .search {
     position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 16px 10px;
+    background: #fff;
+    color: #999;
   }
 }
 </style>
