@@ -19,6 +19,12 @@
       <detail-facility
         :facility="mainPart?.dynamicModule?.facilityModule?.houseFacility"
       ></detail-facility>
+      <detail-landload
+        :landlord="mainPart.dynamicModule.landlordModule"
+      ></detail-landload>
+      <detail-comment
+        :comment="mainPart.dynamicModule.commentModule"
+      ></detail-comment>
     </div>
   </div>
 </template>
@@ -30,6 +36,7 @@ import detailSwiper from "./components/detailSwiper.vue";
 import detailInfo from "./components/detailInfo.vue";
 import detailFacility from "./components/detailFacility.vue";
 import detailLandload from "./components/detailLandload.vue";
+import detailComment from "./components/detailCommnet.vue";
 import useDetail from "@/store/useDetail";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
