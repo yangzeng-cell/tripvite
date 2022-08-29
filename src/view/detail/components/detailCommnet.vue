@@ -43,8 +43,18 @@
           >
         </div>
         <div class="content">
-          <div class="user"></div>
-          <div class="text"></div>
+          <div class="user">
+            <img
+              class="userAvatars"
+              :src="comment.comment.userAvatars"
+              alt=""
+            />
+            <div class="profile">
+              <div class="name">{{ comment.comment.userName }}</div>
+              <div class="time">{{ comment.comment.checkInDate }}</div>
+            </div>
+          </div>
+          <div class="text">{{ comment.comment.commentDetail }}</div>
         </div>
       </div>
     </detail-section>
@@ -123,8 +133,26 @@ const totalCount = computed(() => {
     .content {
       padding: 10px;
       .user {
+        display: flex;
+        .userAvatars {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+        }
+        .profile {
+          margin-left: 8px;
+          .time {
+            margin-top: 3px;
+            font-size: 12px;
+            color: #999;
+          }
+        }
       }
       .text {
+        margin-top: 16px;
+        line-height: 16px;
+        font-size: 12px;
+        color: #333;
       }
     }
   }

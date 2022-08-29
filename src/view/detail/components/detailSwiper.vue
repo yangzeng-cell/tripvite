@@ -57,7 +57,6 @@ const getName = (name) => {
 };
 
 const getIndex = (data) => {
-  console.log(data);
   const valueArr = swiperGroup[data?.enumPictureCategory];
   return valueArr?.findIndex((item) => item === data) + 1;
 };
