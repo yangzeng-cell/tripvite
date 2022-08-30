@@ -10,7 +10,7 @@
         <component :is="props.Component" />
       </keep-alive>
     </router-view>
-    <tab-bar v-if="!route.meta.hideTabBar" class="tab_bar"></tab-bar>
+    <tab-bar v-show="!route.meta.hideTabBar" class="tab_bar"></tab-bar>
     <Loading></Loading>
   </div>
 </template>
