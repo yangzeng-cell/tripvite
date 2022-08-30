@@ -28,6 +28,14 @@ const clickItem = (index) => {
   active.value = index;
   emits("clickTab", index);
 };
+
+const setActive = (index) => {
+  active.value = index;
+};
+
+defineExpose({
+  setActive,
+});
 </script>
 
 <style lang="less" scoped>

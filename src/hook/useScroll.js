@@ -8,7 +8,6 @@ const useScroll = (elRef) => {
   let el = window;
   // 做节流处理，防止多次触发
   const scrollHandler = debounce(() => {
-    console.log("执行");
     if (el === window) {
       clientHeight.value = document.documentElement.clientHeight;
       scrollTop.value = document.documentElement.scrollTop;
@@ -25,7 +24,6 @@ const useScroll = (elRef) => {
     }
   }, 300);
   onMounted(() => {
-    console.log("5555555555555555", elRef);
     if (elRef) el = elRef.value;
     el.addEventListener("scroll", scrollHandler);
   });

@@ -1,6 +1,6 @@
 <template>
   <div class="landload">
-    <detail-section title="房屋设施" footer="查看全部设施">
+    <detail-section title="房东介绍" footer="查看房东主页">
       <div class="landlord_inner">
         <div class="header">
           <img :src="landlord?.topScroll" alt="" />

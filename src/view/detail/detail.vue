@@ -55,6 +55,7 @@
       @clickTab="clickTab"
       class="tab"
       :names="namesList"
+      ref="tabControllerRef"
     ></tab-controller>
   </div>
 </template>
@@ -81,6 +82,7 @@ const router = useRouter();
 const useDetailStore = useDetail();
 const detailRef = ref();
 const names = ref({});
+const tabControllerRef = ref();
 const { houseDetail } = storeToRefs(useDetailStore);
 const { scrollTop } = useScroll(detailRef);
 const showTabControl = computed(() => {
@@ -91,22 +93,26 @@ const mainPart = computed(() => {
 });
 
 const getSectionRef = (el) => {
-  const name = el.$el.getAttribute("name");
-  console.log(name, "-------------");
+  // 当组件卸载时，getSectionRef会在执行一次，el在卸载的时候为null ,所以会报错
+  if (!el) {
+    return;
+  }
+  const name = el?.$el.getAttribute("name");
   names.value[name] = el.$el;
-  console.log(names.value);
 };
-
+// tab切换判断是否是点击还是滚动,如果是点击就为true,点击的时候不需要监听scrollTop的变化
+let isClicked = false;
+// 记录当前tab的offsetTop是否和names.offsetTop匹配,如果已经匹配上了,就开启监听scrollTop
+let currentDistance = 0;
 const clickTab = (index) => {
-  console.log(index, namesList);
   const key = Object.keys(names.value)[index];
   const el = names.value[key];
   let instance = el.offsetTop;
-  console.log(instance);
   if (index !== 0) {
     instance = instance - 44;
   }
-  console.log(detailRef.value);
+  isClicked = true;
+  currentDistance = instance;
   detailRef.value.scrollTo({
     top: instance,
     behavior: "smooth",
@@ -117,8 +123,28 @@ useDetailStore.fetchhouseDetailData(route.params.houseId);
 const goBack = () => {
   router.back();
 };
-
-watch(scrollTop, (newVal) => {});
+// 监听滚动事件,匹配tabcontrol
+watch(scrollTop, (newVal) => {
+  console.log(currentDistance, newVal);
+  if (currentDistance === newVal) {
+    isClicked = false;
+  }
+  // 为true不需要监听
+  if (isClicked) {
+    return;
+  }
+  const namesOffsetTopList = Object.keys(names.value).map(
+    (item) => names.value[item].offsetTop
+  );
+  let index = namesOffsetTopList.length - 1;
+  for (let i = 0; i < namesOffsetTopList.length; i++) {
+    if (newVal < namesOffsetTopList[i] - 44) {
+      index = i - 1;
+      break;
+    }
+  }
+  tabControllerRef.value?.setActive(index);
+});
 </script>
 
 <style lang="less" scoped>
