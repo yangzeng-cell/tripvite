@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <TopBar>
       <template #middle>
         <div class="header">宏源旅通</div>
@@ -24,11 +24,11 @@ import homeCatagory from "./components/homeCatagory.vue";
 import useHome from "@/store/useHome";
 import HotList from "./components/hotList.vue";
 import useScroll from "@/hook/useScroll";
-import { computed, watch } from "vue";
+import { computed, onActivated, ref, watch } from "vue";
 import SearchBar from "../../components/searchBar/searchBar.vue";
-
+const homeRef = ref();
 const useHomeStore = useHome();
-const { attachBottom, scrollTop } = useScroll();
+const { attachBottom, scrollTop } = useScroll(homeRef);
 watch(attachBottom, (newVal) => {
   if (newVal) {
     useHomeStore.fetchHotListData();
@@ -40,10 +40,23 @@ const isShowSearchBar = computed(() => {
   return scrollTop.value >= 360;
 });
 useHomeStore.fetchHotListData();
+
+// 在home切换的时候,保存原来的位置,切换回来的时候
+onActivated(() => {
+  homeRef?.value?.scrollTo({
+    top: scrollTop.value,
+    behavior: "smooth",
+  });
+});
 </script>
 
 <style lang="less" scoped>
 .home {
+  // 必须设置高度,否则无法监听滚动
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-bottom: 60px;
   .header {
     text-align: center;
     width: 100vw;

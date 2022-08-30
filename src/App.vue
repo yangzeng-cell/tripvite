@@ -1,8 +1,15 @@
 <template>
   <div class="app">
-    <keep-alive>
+    <!-- 这种写法不推荐了 -->
+    <!-- <keep-alive>
       <router-view></router-view>
-    </keep-alive>
+    </keep-alive> -->
+    <!-- vurrouter6的写法 -->
+    <router-view v-slot="props">
+      <keep-alive>
+        <component :is="props.Component" />
+      </keep-alive>
+    </router-view>
     <tab-bar v-if="!route.meta.hideTabBar" class="tab_bar"></tab-bar>
     <Loading></Loading>
   </div>
